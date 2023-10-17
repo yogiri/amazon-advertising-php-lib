@@ -3,6 +3,8 @@
 namespace CapsuleB\AmazonAdvertising\Resources;
 
 use CapsuleB\AmazonAdvertising\Client;
+use DateTime;
+use DateTimeZone;
 use Exception;
 
 /**
@@ -14,8 +16,7 @@ use Exception;
  */
 class Reports {
 
-  const BASE_URL  = 'v2/reports';
-  const BASE_SP   = 'v2/sp';
+  const BASE_URL  = 'reporting/reports';
   const BASE_HSA  = 'v2/hsa';
 
   /**
@@ -34,13 +35,13 @@ class Reports {
    * @return mixed
    * @throws Exception
    */
-  private function retrieve($type, $recordType, $reportDate, $segment, $metrics) {
-    $params = [];
-    if (!empty($reportDate) ) $params['reportDate'] = $reportDate;
-    if (!empty($metrics)    ) $params['metrics']    = implode(',', $metrics);
-    if (!empty($segment)    ) $params['segment']    = $segment;
+  private function retrieve($name, $startDate, $endDate, $params = []) {
+    $params = empty($params) ? [] : $params;
+    if (!empty($name)) $params['name']            = $name;
+    if (!empty($startDate)) $params['startDate']  = $startDate;
+    if (!empty($endDate)) $params['endDate']      = $endDate;
 
-    return $this->client->post([$type, $recordType, 'report'], null, $params);
+    return $this->client->post(self::BASE_URL, null, $params);
   }
 
   /**
@@ -52,8 +53,8 @@ class Reports {
     $report = $this->client->get([self::BASE_URL, $id]);
 
     // If the report is ready, download, format and return it
-    if ($report->status == 'SUCCESS') {
-      return $this->client->download($report->location);
+    if ($report->status == 'COMPLETED') {
+      return $this->client->download($report->url);
     }
 
     // Otherwise return the answer as-is
@@ -69,7 +70,7 @@ class Reports {
    * @throws Exception
    */
   public function getCampaigns($reportDate, $segment = null, $metrics = []) {
-    return $this->retrieve(self::BASE_SP, 'campaigns', $reportDate, $segment, $metrics);
+    return $this->retrieve(self::BASE_URL, 'campaigns', $reportDate, $segment, $metrics);
   }
 
   /**
@@ -92,8 +93,78 @@ class Reports {
    * @return mixed
    * @throws Exception
    */
-  public function getAdGroups($reportDate, $segment = null, $metrics = []) {
-    return $this->retrieve(self::BASE_SP, 'adGroups', $reportDate, $segment, $metrics);
+  public function getAdGroups($startDate, $endDate = null) {
+    $endDate = $endDate ?? $startDate;
+
+    $startDate = new DateTime($startDate, new DateTimeZone('America/Los_Angeles'));
+    if(!$endDate){
+      $endDate = $startDate->modify( '-1 day' )->format('Y-m-d');
+    } else {
+      $endDate = new DateTime($endDate, new DateTimeZone('America/Los_Angeles'));
+      $endDate = $endDate->format('Y-m-d');
+    }
+    $startDate = $startDate->format('Y-m-d');
+
+    $configuration = [
+      "adProduct" => "SPONSORED_PRODUCTS",
+      "columns" => [
+        "impressions",
+        "clicks",
+        "cost",
+        "purchases1d",
+        "purchases7d",
+        "purchases14d",
+        "purchases30d",
+        "purchasesSameSku1d",
+        "purchasesSameSku7d",
+        "purchasesSameSku14d",
+        "purchasesSameSku30d",
+        "unitsSoldClicks1d",
+        "unitsSoldClicks7d",
+        "unitsSoldClicks14d",
+        "unitsSoldClicks30d",
+        "sales1d",
+        "sales7d",
+        "sales14d",
+        "sales30d",
+        "attributedSalesSameSku1d",
+        "attributedSalesSameSku7d",
+        "attributedSalesSameSku14d",
+        "attributedSalesSameSku30d",
+        "unitsSoldSameSku1d",
+        "unitsSoldSameSku7d",
+        "unitsSoldSameSku14d",
+        "unitsSoldSameSku30d",
+        "kindleEditionNormalizedPagesRead14d",
+        "kindleEditionNormalizedPagesRoyalties14d",
+        "date",
+        "campaignBiddingStrategy",
+        "costPerClick",
+        "clickThroughRate",
+        "spend",
+        "campaignName",
+        "campaignId",
+        "campaignStatus",
+        "campaignBudgetType",
+        "campaignBudgetAmount",
+        "campaignRuleBasedBudgetAmount",
+        "campaignApplicableBudgetRuleId",
+        "campaignApplicableBudgetRuleName",
+        "campaignBudgetCurrencyCode",
+        "adGroupName",
+        "adGroupId",
+        "adStatus",
+      ],
+      "reportTypeId" => "spCampaigns",
+      "format" => "GZIP_JSON",
+      "groupBy" => [
+        "campaign",
+        "adGroup"
+      ],
+      "timeUnit" => "DAILY"
+    ];
+
+    return $this->retrieve('SponsoredProductsCampaignsWithAdGroupDailyReport', $startDate, $endDate, $configuration);
   }
 
   /**
@@ -117,7 +188,7 @@ class Reports {
    * @throws Exception
    */
   public function getKeywords($reportDate, $segment = null, $metrics = []) {
-    return $this->retrieve(self::BASE_SP, 'keywords', $reportDate, $segment, $metrics);
+    return $this->retrieve(self::BASE_URL, 'keywords', $reportDate, $segment, $metrics);
   }
 
   /**
@@ -141,7 +212,7 @@ class Reports {
    * @throws Exception
    */
   public function getProductAds($reportDate, $segment = null, $metrics = []) {
-    return $this->retrieve(self::BASE_SP, 'productAds', $reportDate, $segment, $metrics);
+    return $this->retrieve(self::BASE_URL, 'productAds', $reportDate, $segment, $metrics);
   }
 
   /**
@@ -153,6 +224,6 @@ class Reports {
    * @throws Exception
    */
   public function getProductTargeting($reportDate, $segment = null, $metrics = []) {
-    return $this->retrieve(self::BASE_SP, 'targets', $reportDate, $segment, $metrics);
+    return $this->retrieve(self::BASE_URL, 'targets', $reportDate, $segment, $metrics);
   }
 }
