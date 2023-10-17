@@ -28,12 +28,12 @@
   },
   "autoload": {
     "psr-4": {
-      "CapsuleB\\AmazonAdvertising\\": "src/"
+      "Yogiri\\AmazonAdvertising\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "CapsuleB\\AmazonAdvertising\\Test\\": "test/"
+      "Yogiri\\AmazonAdvertising\\Test\\": "test/"
     }
   }
 }
