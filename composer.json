@@ -1,6 +1,6 @@
 {
-  "name": "capsule-b/amazon-advertising-php-lib",
-  "description": "PHP Library for the Amazon Advertising API",
+  "name": "yogiri/amazon-advertising-php-lib",
+  "description": "PHP Library for the Amazon Advertising API V3 (WIP)",
   "keywords": [
     "php", "library", "amazon", "ads", "advertising", "api"
   ],
@@ -8,7 +8,7 @@
   "license": "LGPL-3.0-or-later",
   "homepage": "https://github.com/Blog-Ecommerce/amazon-advertising-php-lib",
   "authors": [{
-    "name": "Luis Da Costa",
+    "name": "Luis Da Costa, Yogiri",
     "email": "luis@blog-ecommerce.com",
     "homepage": "https://capsule-b.com"
   }],
