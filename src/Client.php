@@ -1,27 +1,27 @@
 <?php
 
-namespace CapsuleB\AmazonAdvertising;
+namespace Yogiri\AmazonAdvertising;
 
 use Exception;
-use CapsuleB\AmazonAdvertising\Resources\AdGroups;
-use CapsuleB\AmazonAdvertising\Resources\Keywords;
-use CapsuleB\AmazonAdvertising\Resources\NegativeKeywords;
-use CapsuleB\AmazonAdvertising\Resources\Campaigns;
-use CapsuleB\AmazonAdvertising\Resources\CampaignsNegativeKeywords;
-use CapsuleB\AmazonAdvertising\Resources\NegativeProductTargeting;
-use CapsuleB\AmazonAdvertising\Resources\Portfolios;
-use CapsuleB\AmazonAdvertising\Resources\ProductAds;
-use CapsuleB\AmazonAdvertising\Resources\ProductEligibility;
-use CapsuleB\AmazonAdvertising\Resources\ProductSelector;
-use CapsuleB\AmazonAdvertising\Resources\ProductTargeting;
-use CapsuleB\AmazonAdvertising\Resources\Profiles;
-use CapsuleB\AmazonAdvertising\Resources\Reports;
-use CapsuleB\AmazonAdvertising\Resources\Snapshots;
-use CapsuleB\AmazonAdvertising\Resources\Stores;
+use Yogiri\AmazonAdvertising\Resources\AdGroups;
+use Yogiri\AmazonAdvertising\Resources\Keywords;
+use Yogiri\AmazonAdvertising\Resources\NegativeKeywords;
+use Yogiri\AmazonAdvertising\Resources\Campaigns;
+use Yogiri\AmazonAdvertising\Resources\CampaignsNegativeKeywords;
+use Yogiri\AmazonAdvertising\Resources\NegativeProductTargeting;
+use Yogiri\AmazonAdvertising\Resources\Portfolios;
+use Yogiri\AmazonAdvertising\Resources\ProductAds;
+use Yogiri\AmazonAdvertising\Resources\ProductEligibility;
+use Yogiri\AmazonAdvertising\Resources\ProductSelector;
+use Yogiri\AmazonAdvertising\Resources\ProductTargeting;
+use Yogiri\AmazonAdvertising\Resources\Profiles;
+use Yogiri\AmazonAdvertising\Resources\Reports;
+use Yogiri\AmazonAdvertising\Resources\Snapshots;
+use Yogiri\AmazonAdvertising\Resources\Stores;
 
 /**
  * Class Client
- * @package CapsuleB\AmazonAdvertising
+ * @package Yogiri\AmazonAdvertising
  *
  * @property AdGroups                   $adGroups
  * @property Keywords                   $keywords

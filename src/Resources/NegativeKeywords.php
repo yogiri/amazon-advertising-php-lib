@@ -1,13 +1,13 @@
 <?php
 
-namespace CapsuleB\AmazonAdvertising\Resources;
+namespace Yogiri\AmazonAdvertising\Resources;
 
-use CapsuleB\AmazonAdvertising\Client;
+use Yogiri\AmazonAdvertising\Client;
 use Exception;
 
 /**
  * Class NegativeKeywords
- * @package CapsuleB\AmazonAdvertising\Resources
+ * @package Yogiri\AmazonAdvertising\Resources
  *
  * @property Client $client
  */

@@ -1,13 +1,13 @@
 <?php
 
-namespace CapsuleB\AmazonAdvertising\Resources;
+namespace Yogiri\AmazonAdvertising\Resources;
 
 use Exception;
-use CapsuleB\AmazonAdvertising\Client;
+use Yogiri\AmazonAdvertising\Client;
 
 /**
  * Class ProductEligibility
- * @package CapsuleB\AmazonAdvertising\Resources
+ * @package Yogiri\AmazonAdvertising\Resources
  * @see https://advertising.amazon.com/API/docs/en-us/eligibility-prod-3p#
  *
  * @property Client $client

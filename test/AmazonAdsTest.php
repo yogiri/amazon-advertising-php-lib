@@ -1,8 +1,8 @@
 <?php
 
-namespace CapsuleB\AmazonAdvertising\Test;
+namespace Yogiri\AmazonAdvertising\Test;
 
-use CapsuleB\AmazonAdvertising\Client;
+use Yogiri\AmazonAdvertising\Client;
 use Exception;
 use PHPUnit\Framework\TestCase;
 
