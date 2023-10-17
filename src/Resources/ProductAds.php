@@ -8,13 +8,13 @@ use Exception;
 /**
  * Class ProductAds
  * @package CapsuleB\AmazonAdvertising\Resources
- * @see https://advertising.amazon.com/API/docs/v2/reference/product_ads
+ * @see https://advertising.amazon.com/API/docs/en-us/guides/reporting/v3/overview
  *
  * @property Client $client
  */
 class ProductAds {
 
-  const BASE_URL_SP = 'v2/sp/productAds';
+  const BASE_URL_SP = 'sp/productAds';
 
   /**
    * Addons constructor.
@@ -25,13 +25,13 @@ class ProductAds {
   }
 
   /**
-   * @see https://advertising.amazon.com/API/docs/v2/reference/product_ads#listProductAds
+   * @see https://advertising.amazon.com/API/docs/en-us/guides/reporting/v3/report-types#advertised-product-reports
    * @param array $query
    * @return array
    * @throws Exception
    */
   public function list($query = []) {
-    return $this->client->get(self::BASE_URL_SP, $query);
+    return $this->client->post(self::BASE_URL_SP.'/list', $query);
   }
 
   /**
@@ -41,7 +41,7 @@ class ProductAds {
    * @throws Exception
    */
   public function listExtended($query = []) {
-    return $this->client->get([self::BASE_URL_SP, 'extended'], $query);
+    return $this->client->post([self::BASE_URL_SP.'/list', 'extended'], $query);
   }
 
   /**
@@ -63,6 +63,11 @@ class ProductAds {
   public function getExtended($adId) {
     return $this->client->get([self::BASE_URL_SP, 'extended', $adId]);
   }
+
+  public function postExtended($adId) {
+    return $this->client->post([self::BASE_URL_SP."/list", $adId]);
+  }
+
 
   /**
    * @see https://advertising.amazon.com/API/docs/v2/reference/product_ads#createProductAds
